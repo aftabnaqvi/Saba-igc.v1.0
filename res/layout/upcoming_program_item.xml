@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:descendantFocusability="blocksDescendants">
+
+    <ImageView
+        android:id="@+id/ivProgram"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/ic_launcher" />
+
+    <!-- <TextView -->
+     <com.saba.igc.org.extras.EllipsizingTextView  
+    
+        android:id="@+id/tvProgramDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignLeft="@+id/tvProgramTitle"
+        android:layout_alignRight="@+id/tvProgramTitle"
+        android:layout_below="@+id/tvProgramTitle"
+        android:maxLines="3"
+        android:text="@string/program_description" 
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="0dp"
+        android:linksClickable="true"
+        android:ellipsize="end"
+        />
+
+    <TextView
+        android:id="@+id/tvProgramTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/ivProgram"
+        android:layout_toRightOf="@+id/ivProgram"
+        android:text="@string/program_title" 
+        android:layout_marginEnd="10dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="0dp"
+        android:textStyle="bold"/>
+
+</RelativeLayout>
