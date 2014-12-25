@@ -20,8 +20,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ProgressBar;
 
 import com.saba.igc.org.R;
-import com.saba.igc.org.activities.SabaServerResponseListener;
 import com.saba.igc.org.activities.DailyProgramDetailActivity;
+import com.saba.igc.org.activities.SabaServerResponseListener;
 import com.saba.igc.org.adapters.ProgramsArrayAdapter;
 import com.saba.igc.org.application.SabaApplication;
 import com.saba.igc.org.application.SabaClient;
@@ -110,7 +110,7 @@ public abstract class SabaBaseFragment extends Fragment implements SabaServerRes
 			List<SabaProgram> programs = null;                                            
 			if(mProgramName != null && mProgramName.compareToIgnoreCase("WeeklyPrograms") == 0){
 				// parse weekly programs differently....
-				List<List<DailyProgram>> weeklyPrograms = DailyProgram.fromJSONArray1(programName, ProgramsJson);
+				List<List<DailyProgram>> weeklyPrograms = DailyProgram.fromJSONArray(programName, ProgramsJson);
 				SabaProgram.fromWeeklyPrograms(mProgramName, weeklyPrograms);
 			} else {
 				programs = SabaProgram.fromJSONArray(mProgramName, ProgramsJson);
@@ -135,7 +135,7 @@ public abstract class SabaBaseFragment extends Fragment implements SabaServerRes
 		List<SabaProgram> programs = null;
 		if(mProgramName != null && mProgramName.compareToIgnoreCase("Weekly Programs") == 0){
 			// parse weekly programs differently....
-			List<List<DailyProgram>> weeklyPrograms = DailyProgram.fromJSONArray1(programName, response);
+			List<List<DailyProgram>> weeklyPrograms = DailyProgram.fromJSONArray(programName, response);
 			programs = SabaProgram.fromWeeklyPrograms(mProgramName, weeklyPrograms);
 		} else {
 			programs = SabaProgram.fromJSONArray(mProgramName, response);

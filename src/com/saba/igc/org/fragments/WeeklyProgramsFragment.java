@@ -17,10 +17,11 @@ import com.saba.igc.org.models.SabaProgram;
  * @version 1.0
  */
 public class WeeklyProgramsFragment extends SabaBaseFragment {
+	private final String TAG = "WeeklyProgramsFragment"; 
 	private final String PROGRAM_NAME = "Weekly Programs";
 	private List<List<DailyProgram>> mWeeklyPrograms;
-	public WeeklyProgramsFragment(){
-		
+	
+	public WeeklyProgramsFragment(){	
 	}
 	
 	@Override
@@ -28,7 +29,7 @@ public class WeeklyProgramsFragment extends SabaBaseFragment {
 		super.onCreate(savedInstanceState);		
 		// get programs from database. if program exists then display. otherwise make a network request.  
 		mPrograms =  SabaProgram.getSabaPrograms(PROGRAM_NAME);
-		if(mPrograms.size() == 0)
+		if(mPrograms !=  null && mPrograms.size() == 0)
 		{
 			// make a network request to pull the data from server.
 			mSabaClient.getWeeklyPrograms(this);
@@ -42,24 +43,21 @@ public class WeeklyProgramsFragment extends SabaBaseFragment {
 		mSabaClient.getWeeklyPrograms(this);
 	}
 	
+	// make sure this will be called only in case of WeeklyPrograms.
 	@Override
-	public void processJsonObject(String programName, JSONArray response){
+	public void processJsonObject(String programName, JSONArray responseJSONArray){
 		mProgramsProgressBar.setVisibility(View.GONE);
 		mLvPrograms.onRefreshComplete();
-		if(response == null){
-			// display error.
+		if(responseJSONArray == null){
+			Log.d(TAG, "processJsonObject: responseJSONArray is null");
 			return;
 		}
 
-		// clean comments and simplify the method and make sure this will be called only in case of 
-		// WeeklyPrograms, others will to the base class which is SabaBaseFragment.
-		
 		mProgramName = programName;
 		List<SabaProgram> programs = null;
 		// parse weekly programs differently....
-		mWeeklyPrograms = DailyProgram.fromJSONArray1(programName, response);
+		mWeeklyPrograms = DailyProgram.fromJSONArray(programName, responseJSONArray);
 		programs = SabaProgram.fromWeeklyPrograms(mProgramName, mWeeklyPrograms);
-		Log.d("TotalItems received: ", programs.size()+"");
 		addAllWeeklyPrograms(mWeeklyPrograms);
 		addAll(programs);
 	}

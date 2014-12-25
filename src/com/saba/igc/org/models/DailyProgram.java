@@ -103,50 +103,50 @@ public class DailyProgram extends Model {
 		return weeklyProgram;
 	}
 	
-	public static ArrayList<DailyProgram> fromJSONArray(String programName, JSONArray jsonArray){
-		ArrayList<DailyProgram> programs = new ArrayList<DailyProgram>();
-		int length = jsonArray.length();
-		
-		JSONObject programJson = null;
-		
-		String lastDay = "";
-		String lastEnglishDate = "";
-		String lastHijriDate = "";
-		
-		for(int index=0; index<length; index++){
-			try{
-				programJson = jsonArray.getJSONObject(index);
-			} catch(JSONException e){
-				e.printStackTrace();
-				continue;
-			}
-			
-			DailyProgram weeklyProgram = DailyProgram.fromProgramJSON(programJson);
-			if(!weeklyProgram.getDay().isEmpty()){
-				lastDay = weeklyProgram.getDay();
-			} else { 
-				weeklyProgram.setDay(lastDay);
-			}
-			
-			if(!weeklyProgram.getEnglishDate().isEmpty()){
-				lastEnglishDate = weeklyProgram.getEnglishDate();
-			} else { 
-				weeklyProgram.setEnglishDate(lastEnglishDate);
-			}
-			
-			if(!weeklyProgram.getHijriDate().isEmpty()){
-				lastHijriDate = weeklyProgram.getHijriDate();
-			} else { 
-				weeklyProgram.setHijriDate(lastHijriDate);
-			}
-			
-			programs.add(weeklyProgram);
-		}
-		
-		return programs;
-	}
+//	public static ArrayList<DailyProgram> fromJSONArray(String programName, JSONArray jsonArray){
+//		ArrayList<DailyProgram> programs = new ArrayList<DailyProgram>();
+//		int length = jsonArray.length();
+//		
+//		JSONObject programJson = null;
+//		
+//		String lastDay = "";
+//		String lastEnglishDate = "";
+//		String lastHijriDate = "";
+//		
+//		for(int index=0; index<length; index++){
+//			try{
+//				programJson = jsonArray.getJSONObject(index);
+//			} catch(JSONException e){
+//				e.printStackTrace();
+//				continue;
+//			}
+//			
+//			DailyProgram weeklyProgram = DailyProgram.fromProgramJSON(programJson);
+//			if(!weeklyProgram.getDay().isEmpty()){
+//				lastDay = weeklyProgram.getDay();
+//			} else { 
+//				weeklyProgram.setDay(lastDay);
+//			}
+//			
+//			if(!weeklyProgram.getEnglishDate().isEmpty()){
+//				lastEnglishDate = weeklyProgram.getEnglishDate();
+//			} else { 
+//				weeklyProgram.setEnglishDate(lastEnglishDate);
+//			}
+//			
+//			if(!weeklyProgram.getHijriDate().isEmpty()){
+//				lastHijriDate = weeklyProgram.getHijriDate();
+//			} else { 
+//				weeklyProgram.setHijriDate(lastHijriDate);
+//			}
+//			
+//			programs.add(weeklyProgram);
+//		}
+//		
+//		return programs;
+//	}
 	
-	public static List<List<DailyProgram>> fromJSONArray1(String programName, JSONArray jsonArray){
+	public static List<List<DailyProgram>> fromJSONArray(String programName, JSONArray jsonArray){
 		// Weekly Programs represents an array of array of daily programs.
 		// List<DailyProgram> - represents programs for one day.
 		// List<List<DailyProgram>> represents the programs for the whole week.
