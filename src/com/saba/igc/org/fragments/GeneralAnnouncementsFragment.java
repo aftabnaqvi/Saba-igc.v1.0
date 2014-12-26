@@ -24,7 +24,9 @@ public class GeneralAnnouncementsFragment extends SabaBaseFragment {
 		if(mPrograms != null && mPrograms.size() == 0){
 			// make a network request to pull the data from server.
 			mSabaClient.getGeneralAnnouncements(this);
-		} 
+		} else {
+			mProgramName = PROGRAM_NAME;
+		}
 	}
 	
 	@Override
@@ -32,5 +34,10 @@ public class GeneralAnnouncementsFragment extends SabaBaseFragment {
 		// TODO Auto-generated method stub
 		mAdapter.clear();
 		mSabaClient.getGeneralAnnouncements(this);
+	}
+	
+	@Override
+	protected void processOnItemClick(int position){
+		
 	}
 }

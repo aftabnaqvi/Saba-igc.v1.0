@@ -21,6 +21,7 @@ import android.widget.ProgressBar;
 
 import com.saba.igc.org.R;
 import com.saba.igc.org.activities.DailyProgramDetailActivity;
+import com.saba.igc.org.activities.ProgramDetailActivity;
 import com.saba.igc.org.activities.SabaServerResponseListener;
 import com.saba.igc.org.adapters.ProgramsArrayAdapter;
 import com.saba.igc.org.application.SabaApplication;
@@ -77,8 +78,16 @@ public abstract class SabaBaseFragment extends Fragment implements SabaServerRes
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				
-				Intent i = new Intent(getActivity(), DailyProgramDetailActivity.class);
-				startActivity(i);
+				
+				if(mProgramName.compareTo("Weekly Programs")==0){
+					processOnItemClick(position);
+				} else {
+					
+					Intent intent = new Intent(getActivity(), ProgramDetailActivity.class);
+					intent.putExtra("program", mPrograms.get(position));
+					startActivity(intent);
+				}
+				
 			}
 		});
 		
@@ -108,7 +117,7 @@ public abstract class SabaBaseFragment extends Fragment implements SabaServerRes
 			mProgramName = response.getString("title");
 			JSONArray ProgramsJson = response.getJSONArray("entry");
 			List<SabaProgram> programs = null;                                            
-			if(mProgramName != null && mProgramName.compareToIgnoreCase("WeeklyPrograms") == 0){
+			if(mProgramName != null && mProgramName.compareToIgnoreCase("Weekly Programs") == 0){
 				// parse weekly programs differently....
 				List<List<DailyProgram>> weeklyPrograms = DailyProgram.fromJSONArray(programName, ProgramsJson);
 				SabaProgram.fromWeeklyPrograms(mProgramName, weeklyPrograms);
@@ -180,4 +189,5 @@ public abstract class SabaBaseFragment extends Fragment implements SabaServerRes
 	}
 	
 	protected abstract void populatePrograms();
+	protected abstract void processOnItemClick(int position);
 }

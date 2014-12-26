@@ -68,14 +68,15 @@ public final class R {
         public static final int activity_daily_programs_detail=0x7f030000;
         public static final int activity_main=0x7f030001;
         public static final int activity_main1=0x7f030002;
-        public static final int drawer_nav_item=0x7f030003;
-        public static final int fragment_prayer_times=0x7f030004;
-        public static final int prayer_time_item=0x7f030005;
-        public static final int prayer_times_fragment=0x7f030006;
-        public static final int ptr_header=0x7f030007;
-        public static final int upcoming_program_item=0x7f030008;
-        public static final int weekly_program_header=0x7f030009;
-        public static final int weekly_program_item=0x7f03000a;
+        public static final int activity_program_detail=0x7f030003;
+        public static final int drawer_nav_item=0x7f030004;
+        public static final int fragment_prayer_times=0x7f030005;
+        public static final int prayer_time_item=0x7f030006;
+        public static final int prayer_times_fragment=0x7f030007;
+        public static final int ptr_header=0x7f030008;
+        public static final int upcoming_program_item=0x7f030009;
+        public static final int weekly_program_header=0x7f03000a;
+        public static final int weekly_program_item=0x7f03000b;
     }
     public static final class raw {
         public static final int gilroy_islamiccal_2009=0x7f040000;

@@ -22,7 +22,10 @@ public class DailyProgramDetailActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_daily_programs_detail);
 		mLvDailyPrograms = (ListView)findViewById(R.id.lvDailyPrograms);
-		mDailyPrograms = DailyProgram.getPrograms("Thursday");
+		
+		String day = getIntent().getStringExtra("day");
+		if(day != null)
+			mDailyPrograms = DailyProgram.getPrograms(day);
 		
 		// removing program at 0 index which has the date info. Don't want to display here...
 		if(mDailyPrograms != null && mDailyPrograms.size()>0)

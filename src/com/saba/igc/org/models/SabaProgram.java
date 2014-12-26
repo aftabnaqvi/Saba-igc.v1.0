@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
 
 import com.activeandroid.Model;
@@ -54,7 +56,7 @@ import com.activeandroid.query.Select;
  * @version 1.0
  */
 @Table (name="SabaProgram")
-public class SabaProgram extends Model{
+public class SabaProgram extends Model implements Parcelable{
 
 	// lastRequestedTime, last 
 	@Column(name = "lastUpdated")
@@ -263,4 +265,39 @@ public class SabaProgram extends Model{
         .execute();
         // where lastUpdate = "today"
     }
+
+    
+    // ----------------- Parcelable implementation ----------------------------
+	@Override
+	public int describeContents() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		// TODO Auto-generated method stub
+		dest.writeString(this.mTitle);
+        dest.writeString(this.mDescription);
+	}
+	
+	public SabaProgram() {
+    	super();
+    }
+
+    private SabaProgram(Parcel in) {
+    	this();
+        this.mTitle = in.readString();
+        this.mDescription = in.readString();
+    }
+    
+    public static final Parcelable.Creator<SabaProgram> CREATOR = new Parcelable.Creator<SabaProgram>() {
+        public SabaProgram createFromParcel(Parcel source) {
+            return new SabaProgram(source);
+        }
+
+        public SabaProgram[] newArray(int size) {
+            return new SabaProgram[size];
+        }
+    };
 }

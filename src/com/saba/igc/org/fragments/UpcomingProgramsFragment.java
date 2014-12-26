@@ -25,7 +25,9 @@ public class UpcomingProgramsFragment extends SabaBaseFragment {
 		if(mPrograms != null && mPrograms.size() == 0){
 			// make a network request to pull the data from server.
 			mSabaClient.getUpcomingPrograms(this);
-		} 
+		} else {
+			mProgramName = PROGRAM_NAME;
+		}
 	}
 	
 	@Override
@@ -33,6 +35,11 @@ public class UpcomingProgramsFragment extends SabaBaseFragment {
 		// TODO Auto-generated method stub
 		mAdapter.clear();
 		mSabaClient.getUpcomingPrograms(this);
+	}
+	
+	@Override
+	protected void processOnItemClick(int position){
+		
 	}
 }
 
