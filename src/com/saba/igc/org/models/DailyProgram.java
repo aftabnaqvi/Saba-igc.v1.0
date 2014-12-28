@@ -1,6 +1,7 @@
 package com.saba.igc.org.models;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -45,6 +46,9 @@ public class DailyProgram extends Model {
 	@Column(name = "program")
 	private String mProgram;
 
+	@Column(name = "lastUpdated")
+	private String mLastUpdated;
+	
 	public String getDay() {
 		return mDay;
 	}
@@ -81,26 +85,35 @@ public class DailyProgram extends Model {
 		return mProgram;
 	}
 
-	public void setProgram(String mProgram) {
-		this.mProgram = mProgram;
+	public void setProgram(String program) {
+		this.mProgram = program;
+	}
+	
+	public String getLastUpdated() {
+		return mLastUpdated;
+	}
+
+	public void setLastUpdated(String lastUpdated) {
+		this.mLastUpdated = lastUpdated;
 	}
 	
 	public static DailyProgram fromProgramJSON(JSONObject json){
-		DailyProgram weeklyProgram = new DailyProgram();
+		DailyProgram dailyProgram = new DailyProgram();
 		
 		try {
 			System.out.println("JSON: " + json.toString());
-			weeklyProgram.mDay = json.getString("day");
-			weeklyProgram.mEnglishDate = json.getString("englishdate").replace("'","");
-			weeklyProgram.mHijriDate = json.getString("hijridate");
-			weeklyProgram.mTime = json.getString("time").replace("'","");;
-			weeklyProgram.mProgram = json.getString("program");
+			dailyProgram.mDay = json.getString("day");
+			dailyProgram.mEnglishDate = json.getString("englishdate").replace("'","");
+			dailyProgram.mHijriDate = json.getString("hijridate");
+			dailyProgram.mTime = json.getString("time").replace("'","");;
+			dailyProgram.mProgram = json.getString("program");
+			dailyProgram.mLastUpdated = new Date().toString();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		return weeklyProgram;
+		return dailyProgram;
 	}
 	
 //	public static ArrayList<DailyProgram> fromJSONArray(String programName, JSONArray jsonArray){
@@ -146,6 +159,12 @@ public class DailyProgram extends Model {
 //		return programs;
 //	}
 	
+	/**
+	 * @param programName
+	 * @param jsonArray
+	 * @return List<List<DailyProgram>> - represents weekly programs. Array of DailyProgram represents program for a day
+	 * Array of program for a day represents WeeklyProgram 
+	 */
 	public static List<List<DailyProgram>> fromJSONArray(String programName, JSONArray jsonArray){
 		// Weekly Programs represents an array of array of daily programs.
 		// List<DailyProgram> - represents programs for one day.
@@ -167,28 +186,37 @@ public class DailyProgram extends Model {
 				continue;
 			}
 			
-			DailyProgram weeklyProgram = DailyProgram.fromProgramJSON(programJson);
-			if(!weeklyProgram.getDay().isEmpty()){
+			DailyProgram dailyProgram = DailyProgram.fromProgramJSON(programJson);
+			
+			// we don't want to show empty rows.
+			//if(dailyProgram.getTime().trim().isEmpty() && dailyProgram.getProgram().trim().isEmpty())
+			//	continue;
+			
+			// currently, time field contains the <br> which mean empty line. I am ignoring it for now.
+			if(dailyProgram.getTime().compareToIgnoreCase("<br>") == 0)
+				continue;
+			
+			if(!dailyProgram.getDay().isEmpty()){
 				dailyPrograms = new ArrayList<DailyProgram>();
 				weeklyPrograms.add(dailyPrograms);
-				lastDay = weeklyProgram.getDay();
+				lastDay = dailyProgram.getDay();
 			} else { 
-				weeklyProgram.setDay(lastDay);
+				dailyProgram.setDay(lastDay);
 			}
 			
-			if(!weeklyProgram.getEnglishDate().isEmpty()){
-				lastEnglishDate = weeklyProgram.getEnglishDate();
+			if(!dailyProgram.getEnglishDate().isEmpty()){
+				lastEnglishDate = dailyProgram.getEnglishDate();
 			} else { 
-				weeklyProgram.setEnglishDate(lastEnglishDate);
+				dailyProgram.setEnglishDate(lastEnglishDate);
 			}
 			
-			if(!weeklyProgram.getHijriDate().isEmpty()){
-				lastHijriDate = weeklyProgram.getHijriDate();
+			if(!dailyProgram.getHijriDate().isEmpty()){
+				lastHijriDate = dailyProgram.getHijriDate();
 			} else { 
-				weeklyProgram.setHijriDate(lastHijriDate);
+				dailyProgram.setHijriDate(lastHijriDate);
 			}
 			
-			dailyPrograms.add(weeklyProgram);
+			dailyPrograms.add(dailyProgram);
 		}
 		
 		return weeklyPrograms;

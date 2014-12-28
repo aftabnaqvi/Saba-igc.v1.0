@@ -87,7 +87,6 @@ public abstract class SabaBaseFragment extends Fragment implements SabaServerRes
 					intent.putExtra("program", mPrograms.get(position));
 					startActivity(intent);
 				}
-				
 			}
 		});
 		
@@ -168,15 +167,14 @@ public abstract class SabaBaseFragment extends Fragment implements SabaServerRes
 	
 	// delete old data from the WeeklyProgram table and then save all newly retrieved weekly Programs.
 	public void addAllWeeklyPrograms(List<List<DailyProgram>> programs){
-		// delete existing records. We don't want to keep duplicate entries. 
+		// delete existing records. We don't want to keep duplicate/old entries. 
 		 DailyProgram.deletePrograms();
 		
 		// save new/latest programs.
 		for(final List<DailyProgram> dailyPrograms : programs){
 			for(final DailyProgram program : dailyPrograms){
 				program.saveProgram();
-			}
-			
+			}	
 		}
 	}
 		

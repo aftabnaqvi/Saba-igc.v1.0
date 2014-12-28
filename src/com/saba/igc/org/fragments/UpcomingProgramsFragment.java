@@ -39,7 +39,6 @@ public class UpcomingProgramsFragment extends SabaBaseFragment {
 	
 	@Override
 	protected void processOnItemClick(int position){
-		
 	}
 }
 

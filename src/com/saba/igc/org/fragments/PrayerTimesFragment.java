@@ -88,14 +88,14 @@ public class PrayerTimesFragment extends Fragment{
 		if(tvMidnight != null)
 			tvMidnight.setText(items.get(0).getMidnight());
 		
-		System.out.println("records: " + items.size());
-		System.out.println("Date: " + items.get(0).getDate());
-		System.out.println("Imsaak: " + items.get(0).getImsaak());
-		System.out.println("Fajar: " + items.get(0).getFajar());
-		System.out.println("Sunrise: " + items.get(0).getSunrise());
-		System.out.println("Zohar: " + items.get(0).getZohar());
-		System.out.println("Maghrib: " + items.get(0).getMaghrib());
-		System.out.println("Midnight: " + items.get(0).getMidnight());
+//		System.out.println("records: " + items.size());
+//		System.out.println("Date: " + items.get(0).getDate());
+//		System.out.println("Imsaak: " + items.get(0).getImsaak());
+//		System.out.println("Fajar: " + items.get(0).getFajar());
+//		System.out.println("Sunrise: " + items.get(0).getSunrise());
+//		System.out.println("Zohar: " + items.get(0).getZohar());
+//		System.out.println("Maghrib: " + items.get(0).getMaghrib());
+//		System.out.println("Midnight: " + items.get(0).getMidnight());
 		
 		return view;
 	}

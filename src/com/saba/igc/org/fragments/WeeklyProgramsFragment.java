@@ -38,7 +38,6 @@ public class WeeklyProgramsFragment extends SabaBaseFragment {
 			mSabaClient.getWeeklyPrograms(this);
 		} else {
 			mProgramName = PROGRAM_NAME;
-			
 		}
 	}
 	
@@ -71,14 +70,15 @@ public class WeeklyProgramsFragment extends SabaBaseFragment {
 	protected void processOnItemClick(int position){
 		Intent intent = new Intent(getActivity(), DailyProgramDetailActivity.class);
 		String day = null;
-		if(mWeeklyPrograms!=null){
+		if(mWeeklyPrograms != null){
 			day = mWeeklyPrograms.get(position).get(0).getDay();
 		} else {
 			String data = mPrograms.get(position).getTitle(); 
-			int index = data.indexOf(File.separator);
-			day = data.substring(0, index);
+			int index = data.indexOf(File.separator); // finding the index of '/'
+			day = data.substring(0, index); // extract the day. e.g. Thursday
 		}
 		intent.putExtra("day", day);
+		intent.putExtra("header", mPrograms.get(position).getTitle());
 		startActivity(intent);
 	}
 }

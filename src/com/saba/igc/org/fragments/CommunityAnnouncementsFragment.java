@@ -39,6 +39,5 @@ public class CommunityAnnouncementsFragment extends SabaBaseFragment {
 	
 	@Override
 	protected void processOnItemClick(int position){
-		
 	}
 }

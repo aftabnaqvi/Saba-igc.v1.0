@@ -190,7 +190,6 @@ public class SabaProgram extends Model implements Parcelable{
 		for(int index=0; index < length; index++){
 			SabaProgram sabaProgram = new SabaProgram();
 			sabaProgram.setProgramName(programName);
-			
 			List<DailyProgram> dailyPrograms = weeklyPrograms.get(index); 
 			if(dailyPrograms != null && dailyPrograms.get(0)!=null){
 				StringBuilder sb = new StringBuilder();
@@ -237,7 +236,6 @@ public class SabaProgram extends Model implements Parcelable{
 	
 	public static ArrayList<SabaProgram> fromJSON(JSONObject completeJson){
 		return null;
-		
 	}
 	
 	// Persistence methods.
@@ -265,8 +263,7 @@ public class SabaProgram extends Model implements Parcelable{
         .execute();
         // where lastUpdate = "today"
     }
-
-    
+ 
     // ----------------- Parcelable implementation ----------------------------
 	@Override
 	public int describeContents() {
