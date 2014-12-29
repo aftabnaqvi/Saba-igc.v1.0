@@ -1,7 +1,13 @@
 package com.saba.igc.org.fragments;
 
+import im.delight.android.time.RelativeTime;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,6 +17,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,9 +25,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.saba.igc.org.R;
-import com.saba.igc.org.activities.DailyProgramDetailActivity;
 import com.saba.igc.org.activities.ProgramDetailActivity;
 import com.saba.igc.org.activities.SabaServerResponseListener;
 import com.saba.igc.org.adapters.ProgramsArrayAdapter;
@@ -45,6 +52,7 @@ public abstract class SabaBaseFragment extends Fragment implements SabaServerRes
 	protected PullToRefreshListView mLvPrograms;
 	protected ProgressBar mProgramsProgressBar;	
 	protected String mProgramName;
+	protected TextView mTvLastRrefreshedValue;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -61,11 +69,27 @@ public abstract class SabaBaseFragment extends Fragment implements SabaServerRes
 		
 		mProgramsProgressBar = (ProgressBar) view.findViewById(R.id.programsProgressBar);
         mLvPrograms = (PullToRefreshListView) view.findViewById(R.id.lvUpcomingPrograms);
+        mTvLastRrefreshedValue = (TextView) view.findViewById(R.id.tvLastRrefreshedValue);
         
         if(mPrograms != null && mPrograms.size() == 0){
         	mPrograms = new ArrayList<SabaProgram>();
         } else {
         	mProgramsProgressBar.setVisibility(View.GONE);
+        	
+        	String format = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+			SimpleDateFormat sf = new SimpleDateFormat(format, Locale.ENGLISH);
+			sf.setLenient(true);
+		 
+			try {
+				long milliSeconds = sf.parse(mPrograms.get(0).getLastUpdated()).getTime();
+				// e.g. formattedTime could now be <45 minutes ago>
+				String formattedTime = RelativeTime.fromTimestamp(getResources(), milliSeconds);
+				mTvLastRrefreshedValue.setText(formattedTime);
+				
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
         
 		mAdapter = new ProgramsArrayAdapter(getActivity(), mPrograms);
@@ -134,6 +158,12 @@ public abstract class SabaBaseFragment extends Fragment implements SabaServerRes
 	public void processJsonObject(String programName, JSONArray response){
 		mProgramsProgressBar.setVisibility(View.GONE);
 		mLvPrograms.onRefreshComplete();
+		if(mTvLastRrefreshedValue != null){
+			String formattedTime;
+			formattedTime = RelativeTime.fromTimestamp(getResources(), System.currentTimeMillis());
+			// formattedTime could now be <45 minutes ago>
+			mTvLastRrefreshedValue.setText(formattedTime);
+		}
 		if(response == null){
 			// display error.
 			return;

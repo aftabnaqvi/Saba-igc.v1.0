@@ -120,6 +120,10 @@ public class SabaProgram extends Model implements Parcelable{
 		return mImageWidth;
 	}
 	
+	public void setLastUpdated(String lastUpdated) {
+		mLastUpdated = lastUpdated;
+	}
+	
 	public String toString(){
 		return "LastUpdated: " + mLastUpdated + "\nImageUrl: " + mImageUrl + "\nProgramName: " + mProgramName + "\nTitle: " + mTitle + "\nDescription: " + mDescription;
 	}
@@ -227,6 +231,7 @@ public class SabaProgram extends Model implements Parcelable{
 				}
 
 				sabaProgram.mDescription = description.toString();
+				sabaProgram.setLastUpdated(new Date().toString());
 				Log.d("Weekly - Program: ", sabaProgram.mDescription);
 				programs.add(sabaProgram);
 			}

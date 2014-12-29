@@ -36,4 +36,6 @@
     <string name="program_detail">Progra detail goes here... \\n Majlis in Urdu and English</string>
     <string name="weekly_program_header">Tuesday/December 19/24 Safer</string>
     <string name="header">Tuesday/December 19/29th safar</string>
+    <string name="last_refreshed_label">Refreshed</string>
+    <string name="last_refrshed_value">45 mins ago</string>
 </resources>
