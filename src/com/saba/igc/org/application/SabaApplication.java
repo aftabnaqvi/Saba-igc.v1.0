@@ -8,6 +8,7 @@ import com.activeandroid.Configuration;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.saba.igc.org.extras.SimpleLocation;
 import com.saba.igc.org.models.DailyProgram;
 import com.saba.igc.org.models.PrayerTimes;
 import com.saba.igc.org.models.SabaDatabaseHelper;
@@ -19,7 +20,9 @@ import com.saba.igc.org.models.SabaProgram;
  * @version 1.0
  */
 public class SabaApplication extends Application {
-	private static Context context;
+	private static Context mContext;
+	private static SimpleLocation mLocation;
+	
 //
 //	public enum AppStartType {
 //	    FIRST_TIME, 
@@ -72,7 +75,7 @@ public class SabaApplication extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-		SabaApplication.context = this;
+		SabaApplication.mContext = this;
 
 	    Configuration.Builder config1 = new Configuration.Builder(this);
 	    config1.addModelClasses(PrayerTimes.class);
@@ -89,6 +92,9 @@ public class SabaApplication extends Application {
 		.build();
 		ImageLoader.getInstance().init(config);
 		
+		//mLocation = new SimpleLocation(mContext, true, true, 60000);
+		//mLocation.beginUpdates();
+		
 		//createDB();
 	}
 
@@ -97,13 +103,16 @@ public class SabaApplication extends Application {
         super.onTerminate ();
         ActiveAndroid.dispose ();
     }
+	
 	public static SabaClient getSabaClient() {
-		return (SabaClient) SabaClient.getInstance(SabaApplication.context);
+		return (SabaClient) SabaClient.getInstance(SabaApplication.mContext);
 	}
 	
+	public static SimpleLocation getLocation(){
+		return mLocation;
+	}
 	private static void createDB(){
-		SabaDatabaseHelper sdh = new SabaDatabaseHelper(SabaApplication.context);
+		SabaDatabaseHelper sdh = new SabaDatabaseHelper(SabaApplication.mContext);
 		sdh.createDatabase();
-		
 	}
 }

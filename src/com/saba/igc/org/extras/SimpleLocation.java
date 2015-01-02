@@ -1,7 +1,5 @@
 package com.saba.igc.org.extras;
 
-
-
 /**
  * Copyright 2014 www.delight.im <info@delight.im>
  *

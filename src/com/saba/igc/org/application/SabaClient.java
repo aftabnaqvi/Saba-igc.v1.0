@@ -1,16 +1,20 @@
 package com.saba.igc.org.application;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.TimeZone;
+
 import org.apache.http.Header;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.saba.igc.org.activities.SabaServerResponseListener;
+import com.saba.igc.org.listeners.PrayTimesListener;
+import com.saba.igc.org.listeners.SabaServerResponseListener;
 
 /**
  * @author Syed Aftab Naqvi
@@ -22,6 +26,8 @@ public class SabaClient {
 	private static Context mContext;
 //	private SabaServerResponseListener mTarget;
 	private static final String SABA_BASE_URL = "http://www.saba-igc.org/mobileapp/datafeedproxy.php?sheetName=weekly&sheetId=";
+	private static String PRAY_TIME_INFO_URL = "http://praytime.info/getprayertimes.php?lat=34.024899&lon=-117.89730099999997&gmt=-480&m=11&d=31&y=2014&school=0";
+	private static String PRAY_TIME_INFO_BASE_URL = "http://praytime.info/getprayertimes.php?school=0&gmt=-480";
 	private static final int TIME_OUT = 30000;
 	
 //	private class ReadFromDatabase extends AsyncTask<String, Void, List<SabaProgram> > {
@@ -68,7 +74,6 @@ public class SabaClient {
 	public void getCommunityAnnouncements(final SabaServerResponseListener targert){
 		// sheet # 5 is Community Announcements
 		sendRequest("Community Announcements", SABA_BASE_URL+5, targert);
-
 	}
 	
 	public void getGeneralAnnouncements(final SabaServerResponseListener targert){
@@ -84,82 +89,119 @@ public class SabaClient {
     	
     	// trigger the network request
     	client.get(url, new JsonHttpResponseHandler(){
-
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					String responseString, Throwable throwable) {
-				// TODO Auto-generated method stub
-				super.onFailure(statusCode, headers, responseString, throwable);
-			}
-
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					Throwable throwable, JSONArray errorResponse) {
-				// TODO Auto-generated method stub
-				super.onFailure(statusCode, headers, throwable, errorResponse);
-			}
-
 			@Override
 			public void onFailure(int statusCode, Header[] headers,
 					Throwable throwable, JSONObject errorResponse) {
-				// TODO Auto-generated method stub
 				super.onFailure(statusCode, headers, throwable, errorResponse);
+				throwable.printStackTrace();
+				targert.processJsonObject(programName, errorResponse);
+			}
+
+//			@Override
+//			public void onFailure(int statusCode, Header[] headers,
+//					String responseString, Throwable throwable) {
+//				// TODO Auto-generated method stub
+//				super.onFailure(statusCode, headers, responseString, throwable);
+//			}
+//
+//			@Override
+//			public void onFailure(int statusCode, Header[] headers,
+//					Throwable throwable, JSONArray errorResponse) {
+//				// TODO Auto-generated method stub
+//				
+//				
+//				int i = 0;
+//				i++;
+//				super.onFailure(statusCode, headers, throwable, errorResponse);
+//			}
+
+//			@Override
+//			public void onSuccess(int statusCode, Header[] headers,
+//					String responseString) {
+//				// TODO Auto-generated method stub
+//				super.onSuccess(statusCode, headers, responseString);
+//			}
+//
+//			@Override
+//			protected Object parseResponse(byte[] responseBody)
+//					throws JSONException {
+//				// TODO Auto-generated method stub
+//				return super.parseResponse(responseBody);
+//			}
+
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					JSONArray response) {
+				super.onSuccess(statusCode, headers, response);
+				targert.processJsonObject(programName, response);
+			}
+			
+			@Override
+			public void onSuccess(int statusCode, Header[] headers,
+					JSONObject response) {
+				super.onSuccess(statusCode, headers, response);
+				targert.processJsonObject(programName, response);
+			}
+    	});
+	}
+
+	private void sendPrayTimesRequest(final String programName, final String url, final SabaServerResponseListener targert){
+		// create the network client
+    	AsyncHttpClient client = new AsyncHttpClient();
+    	
+    	client.setTimeout(TIME_OUT);
+    	
+    	// trigger the network request
+    	client.get(url, new JsonHttpResponseHandler(){
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					Throwable throwable, JSONObject errorResponse) {
+				super.onFailure(statusCode, headers, throwable, errorResponse);
+				targert.processJsonObject(programName, errorResponse);
 			}
 
 			@Override
 			public void onSuccess(int statusCode, Header[] headers,
 					JSONArray response) {
-				// TODO Auto-generated method stub
-				
-				targert.processJsonObject(programName, response);
-				
 				super.onSuccess(statusCode, headers, response);
+				targert.processJsonObject(programName, response);
 			}
-
+			
 			@Override
 			public void onSuccess(int statusCode, Header[] headers,
 					JSONObject response) {
-				// TODO Auto-generated method stub
 				super.onSuccess(statusCode, headers, response);
+				targert.processJsonObject(programName, response);
 			}
-
-			@Override
-			public void onSuccess(int statusCode, Header[] headers,
-					String responseString) {
-				// TODO Auto-generated method stub
-				super.onSuccess(statusCode, headers, responseString);
-			}
-
-			@Override
-			protected Object parseResponse(byte[] responseBody)
-					throws JSONException {
-				// TODO Auto-generated method stub
-				return super.parseResponse(responseBody);
-			}
-    		
-    		
-//    		@Override
-//    		public void onFailure(int statusCode, Header[] headers,
-//    				Throwable throwable, JSONObject errorResponse) {
-//    			// TODO Auto-generated method stub
-//    			super.onFailure(statusCode, headers, throwable, errorResponse);
-//    			
-//    			Log.d("Request: ", throwable.toString());
-//    			// passing error back to caller.
-//    			targert.processJsonObject(programName, errorResponse);
-//    		}
-//    		
-//    		@Override
-//    		public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-//    			// passing response to caller.
-//				targert.processJsonObject(programName, response);
-//    		}
     	});
 	}
-
+	
 	public void getCachedPrograms(String string, SabaServerResponseListener target) {
 
 		//mTarget = target;
 		//new ReadFromDatabase().execute(string);
+	}
+	
+	public void getPrayTimes(double longitude, double latitude, SabaServerResponseListener target) {
+		StringBuilder sb = new StringBuilder(PRAY_TIME_INFO_BASE_URL);
+		sb.append("&lat=");
+		sb.append(latitude);
+		sb.append("&lon=");
+		sb.append(longitude);
+		sb.append("&m=1&d=1&y=2015");
+		
+		//TimeZone timezone = Calendar.getInstance().getTimeZone();
+		//String zoneId = timezone.getID();
+		// create time zone object     
+	      TimeZone timezone = TimeZone.getTimeZone("GMT");
+	      
+	      // checking offset value for date      
+	      int offset = timezone.getOffset(Calendar.ZONE_OFFSET);	
+	      
+	      sendRequest("Pray Times", sb.toString(), target);
+	}
+	
+	public void getPrayTimes(double longitude, double latitude, Date date, PrayTimesListener target) {
+		
 	}
 }

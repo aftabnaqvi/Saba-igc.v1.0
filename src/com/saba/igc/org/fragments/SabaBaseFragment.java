@@ -29,10 +29,10 @@ import android.widget.TextView;
 
 import com.saba.igc.org.R;
 import com.saba.igc.org.activities.ProgramDetailActivity;
-import com.saba.igc.org.activities.SabaServerResponseListener;
 import com.saba.igc.org.adapters.ProgramsArrayAdapter;
 import com.saba.igc.org.application.SabaApplication;
 import com.saba.igc.org.application.SabaClient;
+import com.saba.igc.org.listeners.SabaServerResponseListener;
 import com.saba.igc.org.models.DailyProgram;
 import com.saba.igc.org.models.SabaProgram;
 
@@ -133,6 +133,7 @@ public abstract class SabaBaseFragment extends Fragment implements SabaServerRes
 		mProgramsProgressBar.setVisibility(View.GONE);
 		if(response == null){
 			// display error.
+			// improvement: try to read the old data from the database....
 			return;
 		}
 
