@@ -6,14 +6,12 @@ import java.util.TimeZone;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
-import com.saba.igc.org.listeners.PrayTimesListener;
 import com.saba.igc.org.listeners.SabaServerResponseListener;
 
 /**
@@ -199,9 +197,5 @@ public class SabaClient {
 	      int offset = timezone.getOffset(Calendar.ZONE_OFFSET);	
 	      
 	      sendRequest("Pray Times", sb.toString(), target);
-	}
-	
-	public void getPrayTimes(double longitude, double latitude, Date date, PrayTimesListener target) {
-		
 	}
 }
