@@ -1,8 +1,5 @@
 package com.saba.igc.org.activities;
 
-import java.util.Calendar;
-import java.util.List;
-
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -17,7 +14,6 @@ import com.saba.igc.org.fragments.GeneralAnnouncementsFragment;
 import com.saba.igc.org.fragments.PrayerTimesFragment;
 import com.saba.igc.org.fragments.UpcomingProgramsFragment;
 import com.saba.igc.org.fragments.WeeklyProgramsFragment;
-import com.saba.igc.org.models.PrayerTimes;
 import com.saba.igc.org.navdrawer.FragmentNavigationDrawer;
 
 /**
