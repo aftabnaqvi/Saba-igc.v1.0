@@ -2,17 +2,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     tools:context="${relativePackage}.${activityClass}" >
 
     <eu.erikw.PullToRefreshListView
         android:id="@+id/lvUpcomingPrograms"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_below="@+id/tvLastRefreshed" 
-        android:layout_margin="5dp">
+        android:divider="@null"
+		android:dividerHeight="0dp">
 
     </eu.erikw.PullToRefreshListView>
 	<ProgressBar
@@ -26,16 +26,22 @@
 	    android:id="@+id/tvLastRefreshed"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:layout_alignLeft="@+id/lvUpcomingPrograms"
+	    android:layout_alignStart="@+id/lvUpcomingPrograms"
 	    android:layout_alignParentTop="true"
-	    android:text="@string/last_refreshed_label" />
+	    android:text="@string/last_refreshed_label" 
+	    android:layout_marginStart="8dp"
+	    android:paddingStart="10dp"
+	    android:paddingEnd="0dp"/>
 
 	<TextView
 	    android:id="@+id/tvLastRrefreshedValue"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentTop="true"
-	    android:layout_alignRight="@+id/lvUpcomingPrograms"
-	    android:text="@string/last_refrshed_value" />
+	    android:layout_alignEnd="@+id/lvUpcomingPrograms"
+	    android:text="@string/last_refrshed_value" 
+	    android:layout_marginEnd="8dp"
+	    android:paddingEnd="10dp"
+	    android:paddingStart="0dp"/>
 
 </RelativeLayout>

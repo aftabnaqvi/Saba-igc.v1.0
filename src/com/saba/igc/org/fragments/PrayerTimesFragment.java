@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.saba.igc.org.R;
@@ -43,7 +44,7 @@ public class PrayerTimesFragment extends Fragment implements SabaServerResponseL
 	private List<PrayTime> 		mPrayTimes;
 	private ListView	 		mLvPrayTimes;
 	private PrayTimeAdapter 	mAdapter;
-	
+	private ProgressBar 		mPrayTimesProgressBar;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,9 +65,10 @@ public class PrayerTimesFragment extends Fragment implements SabaServerResponseL
 	}
 
 	private void setupUI(View view) {
-		mTvCityName = (TextView) view.findViewById(R.id.tvCityName);
-		TextView tvTodayDate = (TextView) view.findViewById(R.id.tvEnglishDate);
-		mLvPrayTimes = (ListView) view.findViewById(R.id.lvPrayTimes);
+		mTvCityName 			= (TextView) view.findViewById(R.id.tvCityName);
+		TextView tvTodayDate 	= (TextView) view.findViewById(R.id.tvEnglishDate);
+		mLvPrayTimes 			= (ListView) view.findViewById(R.id.lvPrayTimes);
+		mPrayTimesProgressBar 	= (ProgressBar) view.findViewById(R.id.prayTimesProgressBar);
 		
 		if(tvTodayDate != null){
 			DateFormat dateInstance = SimpleDateFormat.getDateInstance(DateFormat.FULL);
@@ -97,6 +99,8 @@ public class PrayerTimesFragment extends Fragment implements SabaServerResponseL
 	}
 	@Override
 	public void processJsonObject(String programName, JSONObject response) {
+		mPrayTimesProgressBar.setVisibility(View.GONE);
+		
 		//{"Fajr":"05:59","Isha":"18:18","Asr":"14:43","Dhuhr":"12:11","Sunset":"17:01","Sunrise":"07:21","Maghrib":"17:19","Imsaak":"05:48"}
 		if(response == null){
 			Log.d(TAG, "pray times - json object is null");

@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,6 +24,7 @@ public class DailyProgramDetailActivity extends Activity {
 		mLvDailyPrograms = (ListView)findViewById(R.id.lvDailyPrograms);
 		
 		setupUI();
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	private void setupUI() {
@@ -43,4 +45,16 @@ public class DailyProgramDetailActivity extends Activity {
 		mAdapter = new WeeklyProgramsArrayAdapter(this, dailyPrograms);
 		mLvDailyPrograms.setAdapter(mAdapter);
 	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+		case android.R.id.home:
+			this.finish();
+			break;
+		default:
+			break;
+		}
+		return true;
+    }
 }

@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.saba.igc.org.R;
@@ -35,5 +36,19 @@ public class ProgramDetailActivity extends Activity {
 		
 		mProgramDetial.setText(Html.fromHtml(program.getDescription()));
 		mProgramDetial.setMovementMethod(LinkMovementMethod.getInstance());
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+		case android.R.id.home:
+			this.finish();
+			break;
+		default:
+			break;
+		}
+		return true;
+    }
 }

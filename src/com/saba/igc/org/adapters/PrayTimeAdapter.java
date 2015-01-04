@@ -28,7 +28,7 @@ public class PrayTimeAdapter extends ArrayAdapter<PrayTime> {
 	public PrayTimeAdapter(Context context,
 			List<PrayTime> objects) {
 		
-		super(context, R.layout.prayer_time_item, objects);
+		super(context, R.layout.pray_time_item, objects);
 	}
 	
 	public static class ViewHolder{
@@ -44,7 +44,7 @@ public class PrayTimeAdapter extends ArrayAdapter<PrayTime> {
 		ViewHolder viewHolder =  null;
 		if(convertView == null){
 			viewHolder = new ViewHolder();
-			convertView = LayoutInflater.from(getContext()).inflate(R.layout.prayer_time_item, parent, false);
+			convertView = LayoutInflater.from(getContext()).inflate(R.layout.pray_time_item, parent, false);
 			viewHolder.mTvPrayerName = (TextView)convertView.findViewById(R.id.tvPrayerName);
 			viewHolder.mTvPrayerTime = (TextView)convertView.findViewById(R.id.tvPrayerTime);
 
