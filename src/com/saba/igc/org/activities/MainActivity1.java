@@ -39,7 +39,7 @@ public class MainActivity1 extends FragmentActivity {
 		dlDrawer.addNavItem("Weekly", R.drawable.ic_two, "Weekly Programs", WeeklyProgramsFragment.class);
 		dlDrawer.addNavItem("Community", R.drawable.ic_two, "Community Announcements", CommunityAnnouncementsFragment.class);
 		dlDrawer.addNavItem("General", R.drawable.ic_two, "General Announcements", GeneralAnnouncementsFragment.class);
-		dlDrawer.addNavItem("Prayers", R.drawable.ic_prayer, "Prayer Times", PrayerTimesFragment.class);
+		dlDrawer.addNavItem("Pray Times", R.drawable.ic_pray, "Pray Times", PrayerTimesFragment.class);
 
 		// Select default
 		if (savedInstanceState == null) {

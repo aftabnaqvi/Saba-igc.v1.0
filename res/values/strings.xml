@@ -36,14 +36,15 @@
     <string name="midnight_value">12:11 AM</string>
     
     <string name="program_time">7:30 PM</string>
-    <string name="program_detail">Progra detail goes here... \n Majlis in Urdu and English</string>
+    <string name="program_detail">Progra detail goes here \nMajlis in Urdu and English</string>
     <string name="weekly_program_header">Tuesday/December 19/24 Safer</string>
     <string name="header">Tuesday/December 19/29th safar</string>
     <string name="last_refreshed_label">Refreshed</string>
-    <string name="last_refrshed_value">45 mins ago</string>
+    <string name="last_refrshed_value">in 0 minutes</string>
     <string name="asr_value">04:10 PM</string>
     <string name="asr_label">Asr</string>
     <string name="prayer_name">Prayer Name</string>
     <string name="prayer_time">Prayer Time</string>
     <string name="english_date">English Date</string>
 </resources>
+
