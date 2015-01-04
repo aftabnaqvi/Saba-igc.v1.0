@@ -22,6 +22,7 @@
     <string name="zohar_label">Zohar</string>
     <string name="sunset_label">Sunset</string>
     <string name="maghrib_label">Maghrib</string>
+    <string name="isha_label">Isha</string>
     <string name="midnight_label">Midnight</string>
     <string name="city_name_label">San Jose, CA</string>
     <string name="today_date">"Wed, Dec 2, 2014 "</string>
@@ -31,11 +32,18 @@
     <string name="zohar_value">12:10 PM</string>
     <string name="sunset_value">5:45 PM</string>
     <string name="maghrib_value">5:55 PM</string>
+    <string name="isha_value">07:11 PM</string>
     <string name="midnight_value">12:11 AM</string>
+    
     <string name="program_time">7:30 PM</string>
-    <string name="program_detail">Progra detail goes here... \\n Majlis in Urdu and English</string>
+    <string name="program_detail">Progra detail goes here... \n Majlis in Urdu and English</string>
     <string name="weekly_program_header">Tuesday/December 19/24 Safer</string>
     <string name="header">Tuesday/December 19/29th safar</string>
     <string name="last_refreshed_label">Refreshed</string>
     <string name="last_refrshed_value">45 mins ago</string>
+    <string name="asr_value">04:10 PM</string>
+    <string name="asr_label">Asr</string>
+    <string name="prayer_name">Prayer Name</string>
+    <string name="prayer_time">Prayer Time</string>
+    <string name="english_date">English Date</string>
 </resources>

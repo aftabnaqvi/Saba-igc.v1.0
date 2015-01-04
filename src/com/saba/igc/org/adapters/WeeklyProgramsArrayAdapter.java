@@ -35,7 +35,7 @@ public class WeeklyProgramsArrayAdapter extends ArrayAdapter<DailyProgram>{
 	}
 	
 	public static class ViewHolder{
-		private TextView			tvProgramTime;
+		private TextView	tvProgramTime;
 		private TextView	tvProgramDetail;
 		//private TextView			tvUpatedTime;
 	}

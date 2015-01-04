@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <TextView
-        android:id="@+id/tvCityName"
+        android:id="@+id/tvPrayerName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -16,12 +16,12 @@
         android:gravity="center"/>
 
     <TextView
-        android:id="@+id/tvTodayDate"
+        android:id="@+id/tvPrayerTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/tvCityName"
+        android:layout_below="@+id/tvPrayerName"
         android:layout_marginTop="5dp"
         android:text="@string/today_date"
         android:textAppearance="?android:attr/textAppearanceMedium" 
@@ -58,11 +58,22 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
+        android:id="@+id/tvAsrLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/tvSunriseLabel"
+        android:layout_below="@+id/tvZoharLabel"
+        android:layout_marginTop="10dp"
+        android:text="@string/asr_label"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    
+    <TextView
         android:id="@+id/tvSunsetLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/tvZoharLabel"
-        android:layout_below="@+id/tvZoharLabel"
+        android:layout_alignLeft="@+id/tvAsrLabel"
+        android:layout_below="@+id/tvAsrLabel"
         android:layout_marginTop="10dp"
         android:text="@string/sunset_label"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -82,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvTodayDate"
+        android:layout_below="@+id/tvPrayerTime"
         android:layout_marginLeft="60dp"
         android:layout_marginTop="10dp"
         android:text="@string/imsaac_label"
@@ -129,13 +140,23 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
+        android:id="@+id/tvAsrValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/tvAsrLabel"
+        android:layout_alignBottom="@+id/tvZoharLabel"
+        android:layout_alignLeft="@+id/tvSunriseValue"
+        android:text="@string/asr_value"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    <TextView
         android:id="@+id/tvSunsetValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/tvSunsetLabel"
         android:layout_alignBottom="@+id/tvSunsetLabel"
-        android:layout_alignLeft="@+id/tvZoharValue"
-        android:layout_alignRight="@+id/tvZoharValue"
+        android:layout_alignLeft="@+id/tvAsrValue"
+        android:layout_alignRight="@+id/tvAsrValue"
         android:text="@string/sunset_value"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -150,22 +171,24 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/tvMidnightLabel"
+        android:id="@+id/tvIshaLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/tvMaghribLabel"
+        android:layout_alignRight="@+id/tvZoharLabel"
         android:layout_below="@+id/tvMaghribLabel"
         android:layout_marginTop="10dp"
-        android:text="@string/midnight_label"
+        android:text="@string/isha_label"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/tvMidnightValue"
+        android:id="@+id/tvIshaValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/tvMidnightLabel"
+        android:layout_alignBaseline="@+id/tvIshaLabel"
+        android:layout_alignBottom="@+id/tvIshaLabel"
         android:layout_alignLeft="@+id/tvMaghribValue"
-        android:text="@string/midnight_value"
+        android:text="@string/isha_value"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

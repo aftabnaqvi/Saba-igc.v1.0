@@ -143,37 +143,6 @@ public class SabaClient {
     	});
 	}
 
-	private void sendPrayTimesRequest(final String programName, final String url, final SabaServerResponseListener targert){
-		// create the network client
-    	AsyncHttpClient client = new AsyncHttpClient();
-    	
-    	client.setTimeout(TIME_OUT);
-    	
-    	// trigger the network request
-    	client.get(url, new JsonHttpResponseHandler(){
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					Throwable throwable, JSONObject errorResponse) {
-				super.onFailure(statusCode, headers, throwable, errorResponse);
-				targert.processJsonObject(programName, errorResponse);
-			}
-
-			@Override
-			public void onSuccess(int statusCode, Header[] headers,
-					JSONArray response) {
-				super.onSuccess(statusCode, headers, response);
-				targert.processJsonObject(programName, response);
-			}
-			
-			@Override
-			public void onSuccess(int statusCode, Header[] headers,
-					JSONObject response) {
-				super.onSuccess(statusCode, headers, response);
-				targert.processJsonObject(programName, response);
-			}
-    	});
-	}
-	
 	public void getCachedPrograms(String string, SabaServerResponseListener target) {
 
 		//mTarget = target;
@@ -182,20 +151,22 @@ public class SabaClient {
 	
 	public void getPrayTimes(double longitude, double latitude, SabaServerResponseListener target) {
 		StringBuilder sb = new StringBuilder(PRAY_TIME_INFO_BASE_URL);
+		
+		// setting location
 		sb.append("&lat=");
 		sb.append(latitude);
 		sb.append("&lon=");
 		sb.append(longitude);
-		sb.append("&m=1&d=1&y=2015");
 		
-		//TimeZone timezone = Calendar.getInstance().getTimeZone();
-		//String zoneId = timezone.getID();
-		// create time zone object     
-	      TimeZone timezone = TimeZone.getTimeZone("GMT");
-	      
-	      // checking offset value for date      
-	      int offset = timezone.getOffset(Calendar.ZONE_OFFSET);	
-	      
-	      sendRequest("Pray Times", sb.toString(), target);
+		// setting today's date.
+		Calendar now = Calendar.getInstance();
+		sb.append("&m=");
+		sb.append(now.get(Calendar.MONTH+1)); // month is zero based.
+		sb.append("&d=");
+		sb.append(now.get(Calendar.DAY_OF_MONTH));
+		sb.append("&y=");
+		sb.append(now.get(Calendar.YEAR));
+		
+	    sendRequest("Pray Times", sb.toString(), target);
 	}
 }
