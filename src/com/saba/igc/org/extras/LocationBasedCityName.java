@@ -45,7 +45,7 @@ public class LocationBasedCityName {
                     Bundle bundle = new Bundle();
                     message.what = 1;
                     if (result == null) {
-                        result = "Unable to get address for this location.";
+                        result = "Unknown City.";
                     }
                     bundle.putString("cityname", result);
                     message.setData(bundle);

@@ -31,6 +31,7 @@ public class PrayTime {
 		if(response == null)
 			return null;
 		
+		//{"Fajr":"05:59","Isha":"18:18","Asr":"14:43","Dhuhr":"12:11","Sunset":"17:01","Sunrise":"07:21","Maghrib":"17:19","Imsaak":"05:48"}
 		List<PrayTime> prayTimes = new ArrayList<PrayTime>();
 		
 		try {
@@ -77,6 +78,7 @@ public class PrayTime {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		return prayTimes;
 	}
 }
