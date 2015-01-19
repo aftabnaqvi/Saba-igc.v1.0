@@ -8,6 +8,8 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -79,8 +81,11 @@ public class PrayerTimesFragment extends Fragment implements SabaServerResponseL
 	private void getLocationBasedAddress() {
 		double latitude = 0.0d;
 		double longitude = 0.0d;
+
+        String providerName = getProviderName();
+        Log.d(TAG, "getLocationBasedAddress - providerName: " + providerName);
 		Location gpsLocation = mLocationService
-                .getLocation(LocationManager.GPS_PROVIDER);
+                .getLocation(providerName);
         if (gpsLocation != null) {
             latitude = gpsLocation.getLatitude();
             longitude = gpsLocation.getLongitude();
@@ -97,6 +102,28 @@ public class PrayerTimesFragment extends Fragment implements SabaServerResponseL
 		locationBasedCityName.getAddressFromLocation(latitude, longitude,
                 getActivity(), new GeocoderHandler());	
 	}
+
+    /**
+     * Get provider name.
+     * @return Name of best suiting provider.
+     * */
+    String getProviderName() {
+        LocationManager locationManager = (LocationManager) getActivity()
+                .getSystemService(Context.LOCATION_SERVICE);
+
+        Criteria criteria = new Criteria();
+        criteria.setPowerRequirement(Criteria.POWER_LOW); // Chose your desired power consumption level.
+        criteria.setAccuracy(Criteria.ACCURACY_LOW); // Choose your accuracy requirement.
+        criteria.setSpeedRequired(false); // Chose if speed for first location fix is required.
+        criteria.setAltitudeRequired(false); // Choose if you use altitude.
+        criteria.setBearingRequired(false); // Choose if you use bearing.
+        criteria.setCostAllowed(false); // Choose if this provider can waste money :-)
+
+        // Provide your criteria and flag enabledOnly that tells
+        // LocationManager only to return active providers.
+        return locationManager.getBestProvider(criteria, true);
+    }
+
 	@Override
 	public void processJsonObject(String programName, JSONObject response) {
 		mPrayTimesProgressBar.setVisibility(View.GONE);

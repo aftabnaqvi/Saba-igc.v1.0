@@ -1,21 +1,18 @@
 package com.saba.igc.org.fragments;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.List;
-import java.util.Locale;
-
-import org.json.JSONArray;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.View;
 
 import com.saba.igc.org.activities.DailyProgramDetailActivity;
 import com.saba.igc.org.models.DailyProgram;
 import com.saba.igc.org.models.SabaProgram;
+
+import org.json.JSONArray;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * @author Syed Aftab Naqvi
@@ -35,8 +32,7 @@ public class WeeklyProgramsFragment extends SabaBaseFragment {
 		super.onCreate(savedInstanceState);		
 		// get programs from database. if program exists then display. otherwise make a network request.  
 		mPrograms =  SabaProgram.getSabaPrograms(PROGRAM_NAME);
-		if(mPrograms !=  null && mPrograms.size() == 0)
-		{
+		if(mPrograms !=  null && mPrograms.size() == 0){
 			// make a network request to pull the data from server.
 			mSabaClient.getWeeklyPrograms(this);
 		} else {

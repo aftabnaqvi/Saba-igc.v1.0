@@ -9,6 +9,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 
 /**
  * @author Syed Aftab Naqvi
@@ -18,22 +19,23 @@ import android.os.IBinder;
 
 public class LocationService extends Service implements LocationListener {
     protected Context mContext; 
+    private final String TAG ="LocationService";
+    private final long MIN_DISTANCE_FOR_UPDATE = 0;//10;
+    private final long MIN_TIME_FOR_UPDATE = 0; //1000 * 60 * 2;
 
-    private final long MIN_DISTANCE_FOR_UPDATE = 10;
-    private final long MIN_TIME_FOR_UPDATE = 1000 * 60 * 2;
-
+    LocationManager mLocationManager;
     public LocationService(Context context) {
     	mContext = context;
     }
 
     public Location getLocation(String provider) {
-    	LocationManager locationManager = (LocationManager)mContext
+        mLocationManager = (LocationManager)mContext
                 .getSystemService(LOCATION_SERVICE);
-        if (locationManager.isProviderEnabled(provider)) {
-            locationManager.requestLocationUpdates(provider,
+        if (mLocationManager.isProviderEnabled(provider)) {
+            mLocationManager.requestLocationUpdates(provider,
                     MIN_TIME_FOR_UPDATE, MIN_DISTANCE_FOR_UPDATE, this);
-            if (locationManager != null) {
-                return locationManager.getLastKnownLocation(provider);
+            if (mLocationManager != null) {
+                return mLocationManager.getLastKnownLocation(provider);
             }
         }
         return null;
@@ -41,6 +43,8 @@ public class LocationService extends Service implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
+        Log.d(TAG, "onLocationChanged - Latitude: " + location.getLatitude() + " - Longitude: " + location.getLongitude());
+        mLocationManager.removeUpdates(this);
     }
 
     @Override

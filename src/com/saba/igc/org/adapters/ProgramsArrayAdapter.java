@@ -1,11 +1,8 @@
 package com.saba.igc.org.adapters;
 
-import java.util.List;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,9 +16,9 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageLoadingListener;
 import com.saba.igc.org.R;
-import com.saba.igc.org.extras.EllipsizingTextView;
 import com.saba.igc.org.models.SabaProgram;
-import com.saba.igc.org.models.DailyProgram;
+
+import java.util.List;
 
 class BitmapScaler
 {
@@ -57,8 +54,8 @@ public class ProgramsArrayAdapter extends ArrayAdapter<SabaProgram>{
 	public static class ViewHolder{
 		private ImageView			ivProgramImage;
 		private TextView			tvProgramTitle;
-		private EllipsizingTextView	tvProgramDescription;
-		//private TextView	tvProgramDescription;
+		//private EllipsizingTextView	tvProgramDescription;
+		private TextView	tvProgramDescription;
 		private TextView			tvUpatedTime;
 		private ProgressBar			ivImageProgressBar;
 	}
@@ -74,8 +71,8 @@ public class ProgramsArrayAdapter extends ArrayAdapter<SabaProgram>{
 			convertView = LayoutInflater.from(getContext()).inflate(R.layout.upcoming_program_item, parent, false);
 			viewHolder.ivProgramImage = (ImageView)convertView.findViewById(R.id.ivProgram);
 			viewHolder.tvProgramTitle = (TextView)convertView.findViewById(R.id.tvProgramTitle);
-			viewHolder.tvProgramDescription = (EllipsizingTextView)convertView.findViewById(R.id.tvProgramDescription);
-			//viewHolder.tvProgramDescription = (TextView)convertView.findViewById(R.id.tvProgramDescription);
+			//viewHolder.tvProgramDescription = (EllipsizingTextView)convertView.findViewById(R.id.tvProgramDescription);
+			viewHolder.tvProgramDescription = (TextView)convertView.findViewById(R.id.tvProgramDescription);
 			
 //			viewHolder.tvUpatedTime = (TextView)convertView.findViewById(R.id.tvUpatedTime);
 //			viewHolder.ivTweetImageProgressBar = (ProgressBar)convertView.findViewById(R.id.imageProgressBar);
@@ -146,7 +143,10 @@ public class ProgramsArrayAdapter extends ArrayAdapter<SabaProgram>{
 		if(viewHolder.tvProgramDescription != null){
 			Log.d("InAdapter: ", program.getDescription());
 			viewHolder.tvProgramDescription.setText(Html.fromHtml(program.getDescription()));
-			viewHolder.tvProgramDescription.setMovementMethod(LinkMovementMethod.getInstance());
+
+            // forgot what following line was doing but lets keep it here...
+            // currently, it was disabling the click events.
+			//viewHolder.tvProgramDescription.setMovementMethod(LinkMovementMethod.getInstance());
 		}	
 	}
 	
